@@ -1,25 +1,34 @@
-"""The module responsible for the operation
-of the server side of the console chat"""
+"""
+The module responsible for the operation
+of the server side of the console chat
+"""
 
 from threading import Thread
 import socket
 import syslog
 
 
+def server_info():
+    """Gets host and port information"""
+    host = input("Choose host in format '127.0.0.1', 'Enter' for 'localhost': ")
+    port = input("Choose port in format '1111', 'Enter' for '8080': ")
+    if host == '':
+        host = '127.0.0.1'
+    if port == '':
+        port = 8080
+    else:
+        port = int(port)
+    return host, port
+
+
 def broadcast(message):
-    """
-    Takes a message parameter and
-    sends it to all active users
-    """
+    """Sends message to all active users"""
     for client in clients:
         client.send(message)
 
 
 def handle(client):
-    """
-    Receives from a message from the
-    client, logs it and broadcast
-    """
+    """Receives a message from the client, logs it and broadcast"""
     while True:
         try:
             message = client.recv(1024)
@@ -36,11 +45,7 @@ def handle(client):
 
 
 def receive(server):
-    """
-    Accepts users, collects
-    information and passes
-    it to handle()
-    """
+    """Accepts users, collects information and passes it to handle()"""
     while True:
         client, address = server.accept()
         print(f"Connected with {str(address)}")
@@ -58,15 +63,7 @@ def receive(server):
 
 
 if __name__ == '__main__':
-    host = input("Choose host in format '127.0.0.1', 'Enter' for 'localhost': ")
-    port = input("Choose port in format '1111', 'Enter' for '8080': ")
-    if host == '':
-        host = '127.0.0.1'
-    if port == '':
-        port = 8080
-    else:
-        port = int(port)
-
+    host, port = server_info()
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((host, port))
     server.listen()

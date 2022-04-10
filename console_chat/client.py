@@ -1,16 +1,15 @@
-"""The module responsible for the operation
-of the client side of the console chat """
+"""
+The module responsible for the operation
+of the client side of the console chat
+"""
 
 from threading import Thread
 import socket
+from server import server_info
 
 
 def receive():
-    """
-    Receives messages from the server,
-    in case of receiving its own message,
-    reports delivery
-    """
+    """Receives a message from the server and processes it"""
     while True:
         try:
             message = client.recv(1024).decode('utf-8')
@@ -37,17 +36,8 @@ def write():
 
 if __name__ == '__main__':
     nickname = input("Choose a nickname: ")
-    host = input("Choose host in format '127.0.0.1', 'Enter' for 'localhost': ")
-    port = input("Choose port in format '1111', 'Enter' for '8080': ")
-    if host == '':
-        host = '127.0.0.1'
-    if port == '':
-        port = 8080
-    else:
-        port = int(port)
-
+    host, port = server_info()
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((host, port))
-
     receive_thread = Thread(target=receive).start()
     write_thread = Thread(target=write).start()

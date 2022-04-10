@@ -19,7 +19,7 @@ the server takes place via a TCP/IP socket. The socket is
 provided by the built-in library _**socket**_.
 
 ```python
-host, port = '127.0.0.1', 7789
+host, port = '127.0.0.1', 8080
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
@@ -88,4 +88,4 @@ $ ./client
 (Note the default host is 127.0.0.1, port is 8080)
 
 For all questions write to:
-https://www.github.com/rogaliiik
+https://www.github.com/rogaliiik or igalart2000@gmail.com
