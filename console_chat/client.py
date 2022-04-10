@@ -2,9 +2,9 @@
 The module responsible for the operation
 of the client side of the console chat
 """
-
-from threading import Thread
 import socket
+from threading import Thread
+import sys
 from server import server_info
 
 
@@ -20,17 +20,18 @@ def receive():
             else:
                 print(message)
         except:
-            print("--message not delivered--", '\n', "closing with an error...")
+            print("--message not delivered--", '\n', "closing...")
             client.close()
             break
 
 
 def write():
-    """
-    Sends messages to the server
-    """
+    """Sends messages to the server"""
     while True:
         message = f'{nickname} : {input("")}'
+        if message == f'{nickname} : /exit':
+            client.close()
+            sys.exit(0)
         client.send(message.encode('utf-8'))
 
 

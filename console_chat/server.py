@@ -57,7 +57,7 @@ def receive(server):
 
         print(f"New client's nickname: {nickname}!")
         broadcast(f'New client {nickname} joined the chat! '.encode('utf-8'))
-        client.send('You were connected to the server!'.encode('utf-8'))
+        client.send('You were connected to the server! /exit to quit'.encode('utf-8'))
 
         thread = Thread(target=handle, args=(client,)).start()
 
