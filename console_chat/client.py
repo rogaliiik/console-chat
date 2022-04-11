@@ -21,7 +21,7 @@ def receive():
             else:
                 print(message)
         except:
-            print("--message not delivered--", '\n', "closing...")
+            print("--message not delivered--", '\n', "you are logged out of the server")
             client.close()
             break
 
@@ -32,6 +32,7 @@ def write():
         message = f'{nickname} : {input("")}'
         if message == f'{nickname} : /exit':
             client.close()
+            print('closing...')
             sys.exit(0)
         client.send(message.encode('utf-8'))
 
