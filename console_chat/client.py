@@ -2,6 +2,7 @@
 The module responsible for the operation
 of the client side of the console chat
 """
+
 import socket
 from threading import Thread
 import sys

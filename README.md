@@ -3,16 +3,28 @@
 A simple console chat with the ability to exchange 
 messages over TCP/IP protocol on Python 3.10.
 
+Made by Artyom Galkin  igalart2000@gmail.com
+
 # Implementation
 
-Imports of all required libraries are presented below
+Development tools:
 
+<ul><li>Python 3.10</li>
+<li>PyCharm 2021.3</li></ul>
+
+Imports of all required libraries are presented below
 
 ```python
 from threading import Thread
 import socket
 import syslog
+import sys
 ```
+
+<ul><li>socket - used to create a socket for communication between server and clients</li>
+<li>threading - used to support multiple clients at the same time in different threads</li>
+<li>syslog - used for logging messages on Unix systems</li>
+<li>sys - used to logout using sys.exit()</li></ul>
 
 During implementation, communication between the client and
 the server takes place via a TCP/IP socket. The socket is 
@@ -61,15 +73,26 @@ thread.start()
 Moreover, threads for each client are launched both 
 on the server and on the client side.
 
-```python
+```
 receive_thread = Thread(target=receive).start()
 write_thread = Thread(target=write).start()
+```
+
+The _pyinstaller_ library was used to create distributions.
+```
+$ pyinstaller --onefile <filename>
 ```
 
 # Installation and launch
 
 You can download distributions from GitHub:
 https://www.github.com/rogaliiik/console_chat.git
+
+If you have the archive, unzip the package 
+
+```
+$ tar -xvf console_chat.tar -C /path/to/dir
+```
 
 Then, to start the server, move to the
 project folder and open the distribution kit in the terminal window:
@@ -84,6 +107,8 @@ open the distribution with:
 ```
 $ ./client
 ```
+
+Use `/exit` to quit
 
 (Note the default host is 127.0.0.1, port is 8080)
 
